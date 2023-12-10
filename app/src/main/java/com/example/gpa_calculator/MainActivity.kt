@@ -2,13 +2,21 @@ package com.example.gpa_calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.*
 import java.util.HashMap
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var courseName: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        courseName = findViewById(R.id.courseName)
     }
+
+
 }
 
 fun gradeWeightsperCourse(grade: String, credits: Float): Float {
