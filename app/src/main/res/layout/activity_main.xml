@@ -44,17 +44,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gpaTitle" />
 
+    <!-- Adjust the margin as needed -->
+
+    <!-- Add a vertical LinearLayout to contain dynamically added EditText views -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addCourseFloat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginBottom="40dp"
         android:clickable="true"
         android:onClick="addCourse"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseName"
+        app:layout_constraintVertical_bias="0.906"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <LinearLayout
+        android:id="@+id/containerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
