@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8D51C"
+    android:background="#1D8F9E"
     tools:context=".MainActivity">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         android:text="GPA Calculator"
+        android:textColor="#92A0ED"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,22 +23,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Adjust the margin as needed -->
+
+    <!-- Add a vertical LinearLayout to contain dynamically added EditText views -->
+
     <EditText
         android:id="@+id/courseName"
-        android:layout_width="324dp"
-        android:layout_height="45dp"
+        android:layout_width="225dp"
+        android:layout_height="50dp"
         android:layout_marginTop="68dp"
         android:ems="10"
         android:hint="Course Name"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toEndOf="@+id/gradeSpin"
         app:layout_constraintTop_toBottomOf="@+id/gpaTitle" />
-
-    <!-- Adjust the margin as needed -->
-
-    <!-- Add a vertical LinearLayout to contain dynamically added EditText views -->
 
     <Spinner
         android:id="@+id/gradeSpin"
@@ -46,6 +47,18 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gpaTitle" />
+
+    <Spinner
+        android:id="@+id/creditsSpin"
+        android:layout_width="94dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="4dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:soundEffectsEnabled="false"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gpaTitle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -12,6 +12,7 @@
         private lateinit var containerLayout: LinearLayout
         private lateinit var addCourseFloat: FloatingActionButton
         private lateinit var gradeSpin: Spinner
+        private lateinit var creditsSpin: Spinner
         private var editTextCount = 1 // Counter for generated EditText views
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +23,14 @@
             containerLayout = findViewById(R.id.containerLayout)
             addCourseFloat = findViewById(R.id.addCourseFloat)
             gradeSpin = findViewById(R.id.gradeSpin)
+            creditsSpin = findViewById(R.id.creditsSpin)
+
             val spinnerData = arrayOf("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F")
+            val spinnerData2 = arrayOf("1", "2", "3", "4")
             val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerData)
+            val spinnerAdapter2 = ArrayAdapter(this, R.layout.spinner_item, spinnerData2)
             gradeSpin.adapter = spinnerAdapter
+            creditsSpin.adapter = spinnerAdapter2
             addCourseFloat.setOnClickListener {
                 if (editTextCount < 7) {
                     addNewCourse()
