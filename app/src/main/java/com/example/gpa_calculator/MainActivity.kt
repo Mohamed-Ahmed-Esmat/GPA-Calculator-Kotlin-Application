@@ -14,9 +14,12 @@
         private lateinit var addCourseFloat: FloatingActionButton
         private lateinit var gradeSpin: Spinner
         private lateinit var creditsSpin: Spinner
+        private lateinit var calcBtn: Button
+        private lateinit var gpaText: TextView
         private var editTextCount = 1 // Counter for generated EditText views
 
         override fun onCreate(savedInstanceState: Bundle?) {
+           // gpaText.text = "GPA: 0.00"
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
@@ -25,7 +28,8 @@
             addCourseFloat = findViewById(R.id.addCourseFloat)
             gradeSpin = findViewById(R.id.gradeSpin)
             creditsSpin = findViewById(R.id.creditsSpin)
-
+            calcBtn = findViewById(R.id.calcBtn)
+            gpaText = findViewById(R.id.gpaText)
             val spinnerData = arrayOf("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F")
             val spinnerData2 = arrayOf("1", "2", "3", "4")
             val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerData)
@@ -86,53 +90,73 @@
         }
 
 
-        fun gradeWeightsperCourse(grade: String, credits: Float): Float {
-            val gradesWeight: Map<String, Float> = mapOf(
-                "A+" to 4.0f,
-                "A" to 4.0f,
-                "A-" to 3.7f,
-                "B+" to 3.3f,
-                "B" to 3.0f,
-                "B-" to 2.7f,
-                "C+" to 2.3f,
-                "C" to 2.0f,
-                "C-" to 1.7f,
-                "D+" to 1.3f,
-                "D" to 1.0f,
-                "F" to 0.0f
-            )
 
-            return gradesWeight[grade]?.times(credits) ?: run {
-                println("Invalid grade")
-                0.0f
-            }
-        }
 
         fun calculate(view: View) {
-            val courses = Array(editTextCount) { "" }
-            val credits = FloatArray(editTextCount)
-            val grades = Array(editTextCount) { "" }
+            val courses = mutableListOf<String>()
+            val credits = mutableListOf<Float>()
+            val grades = mutableListOf<String>()
+            var cummulative = 0.0f
             var coursePoints = 0.0f
             var gradePoints = 0.0f
-
             println("\nEnter course details:\n")
 
-//                for (i in courses.indices) {
-//                    println("\nCourse ${i + 1}:\n")
-//
-//                    print("Name: ")
-//                    courses[i] = scanner.nextLine()
-//
-//                    print("Credit hours: ")
-//                    credits[i] = scanner.nextFloat()
-//                    scanner.nextLine() // Consume newline character
-//
-//                    print("Grade: ")
-//                    grades[i] = scanner.nextLine()
-//
-//                    gradePoints += gradeWeightsCourse(grades[i], credits[i])
-//                    coursePoints += credits[i]
-//                }
+                for (i in 0 until containerLayout.childCount) {
+                    val linearLayout = containerLayout.getChildAt(i) as LinearLayout
 
+                    // Access the EditText within the linearLayout
+                    val courseNameEditText = linearLayout.getChildAt(1) as EditText
+                    val courseName = courseNameEditText.text.toString().trim()
+
+                    // Add course name to the list if it's not empty
+                    val gradeSpinner = linearLayout.getChildAt(0) as Spinner
+                    val grade = gradeSpinner.selectedItem.toString()
+
+                    val creditSpinner = linearLayout.getChildAt(2) as Spinner
+                    val creditStr = creditSpinner.selectedItem.toString()
+                    val credit = creditStr.toFloat()  // Assuming credit values are stored as strings
+
+                    if (courseName.isNotEmpty()) {
+                        courses.add(courseName)
+                        credits.add(credit)
+                        grades.add(grade)
+                    }else{
+                        Toast.makeText(
+                            this,
+                            "Please enter course name",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+
+
+                    gradePoints += gradeWeightsperCourse(grades[i], credits[i])
+                    coursePoints += credits[i]
+                    cummulative = gradePoints / coursePoints
+                    gpaText.text = "GPA: %.2f".format(cummulative)
+                }
+
+        }
+    }
+
+    fun gradeWeightsperCourse(grade: String, credits: Float): Float {
+        val gradesWeight: Map<String, Float> = mapOf(
+            "A+" to 4.0f,
+            "A" to 4.0f,
+            "A-" to 3.7f,
+            "B+" to 3.3f,
+            "B" to 3.0f,
+            "B-" to 2.7f,
+            "C+" to 2.3f,
+            "C" to 2.0f,
+            "C-" to 1.7f,
+            "D+" to 1.3f,
+            "D" to 1.0f,
+            "F" to 0.0f
+        )
+
+        return gradesWeight[grade]?.times(credits) ?: run {
+            println("Invalid grade")
+            0.0f
         }
     }
