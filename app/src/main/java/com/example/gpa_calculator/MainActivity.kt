@@ -1,5 +1,6 @@
     package com.example.gpa_calculator
 
+    import android.annotation.SuppressLint
     import android.os.Bundle
     import android.view.View
     import android.widget.*
@@ -47,6 +48,7 @@
             }
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         private fun addNewCourse() {
             val linearLayout = LinearLayout(this)
             linearLayout.orientation = LinearLayout.HORIZONTAL
@@ -56,15 +58,18 @@
             val creditSpinner = Spinner(this)
 
             // Set layout parameters for horizontal arrangement
+            creditSpinner.layoutParams = LinearLayout.LayoutParams(
+                250, // Match width of creditsSpin
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
             newEditText.layoutParams = LinearLayout.LayoutParams(
                 0,  // Width will be determined by weight
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1f   // Weight for EditText to take up remaining space
             )
-            creditSpinner.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+
+            // Apply design attributes from creditsSpin
+            creditSpinner.background = resources.getDrawable(android.R.drawable.btn_dropdown)
             newEditText.hint = "Course Name"
 
             // Add dummy data for the spinner
@@ -112,22 +117,22 @@
 
             println("\nEnter course details:\n")
 
-            for (i in courses.indices) {
-                println("\nCourse ${i + 1}:\n")
-
-                print("Name: ")
-                courses[i] = scanner.nextLine()
-
-                print("Credit hours: ")
-                credits[i] = scanner.nextFloat()
-                scanner.nextLine() // Consume newline character
-
-                print("Grade: ")
-                grades[i] = scanner.nextLine()
-
-                gradePoints += gradeWeightsCourse(grades[i], credits[i])
-                coursePoints += credits[i]
-            }
+//                for (i in courses.indices) {
+//                    println("\nCourse ${i + 1}:\n")
+//
+//                    print("Name: ")
+//                    courses[i] = scanner.nextLine()
+//
+//                    print("Credit hours: ")
+//                    credits[i] = scanner.nextFloat()
+//                    scanner.nextLine() // Consume newline character
+//
+//                    print("Grade: ")
+//                    grades[i] = scanner.nextLine()
+//
+//                    gradePoints += gradeWeightsCourse(grades[i], credits[i])
+//                    coursePoints += credits[i]
+//                }
 
         }
     }
