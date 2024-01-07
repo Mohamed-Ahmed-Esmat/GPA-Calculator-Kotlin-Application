@@ -40,7 +40,9 @@
                         this,
                         "Maximum number of courses reached",
                         Toast.LENGTH_SHORT
+
                     ).show()
+                    addCourseFloat.visibility = View.GONE
                 }
             }
         }
@@ -51,20 +53,30 @@
 
             val newEditText = EditText(this)
             val newSpinner = Spinner(this)
+            val creditSpinner = Spinner(this)
 
+            // Set layout parameters for horizontal arrangement
             newEditText.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                0,  // Width will be determined by weight
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f   // Weight for EditText to take up remaining space
+            )
+            creditSpinner.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             newEditText.hint = "Course Name"
 
             // Add dummy data for the spinner
             val spinnerData = arrayOf("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F")
+            val spinnerData1 = arrayOf(1,2,3,4)
             val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerData)
+            val spinnerAdapter1 = ArrayAdapter(this, R.layout.spinner_item, spinnerData1)
             newSpinner.adapter = spinnerAdapter
+            creditSpinner.adapter = spinnerAdapter1
             linearLayout.addView(newSpinner)
             linearLayout.addView(newEditText)
-
+            linearLayout.addView(creditSpinner)
             containerLayout.addView(linearLayout)
         }
 
@@ -89,5 +101,33 @@
                 println("Invalid grade")
                 0.0f
             }
+        }
+
+        fun calculate(view: View) {
+            val courses = Array(editTextCount) { "" }
+            val credits = FloatArray(editTextCount)
+            val grades = Array(editTextCount) { "" }
+            var coursePoints = 0.0f
+            var gradePoints = 0.0f
+
+            println("\nEnter course details:\n")
+
+            for (i in courses.indices) {
+                println("\nCourse ${i + 1}:\n")
+
+                print("Name: ")
+                courses[i] = scanner.nextLine()
+
+                print("Credit hours: ")
+                credits[i] = scanner.nextFloat()
+                scanner.nextLine() // Consume newline character
+
+                print("Grade: ")
+                grades[i] = scanner.nextLine()
+
+                gradePoints += gradeWeightsCourse(grades[i], credits[i])
+                coursePoints += credits[i]
+            }
+
         }
     }

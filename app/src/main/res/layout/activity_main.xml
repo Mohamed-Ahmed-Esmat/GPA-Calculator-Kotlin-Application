@@ -73,7 +73,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseName"
-        app:layout_constraintVertical_bias="0.906"
+        app:layout_constraintVertical_bias="0.955"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <LinearLayout
@@ -86,4 +86,27 @@
         app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseName" />
+
+    <Button
+        android:id="@+id/calcBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:onClick="calculate"
+        android:text="Calculate"
+        app:layout_constraintBottom_toTopOf="@+id/addCourseFloat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/gpaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/calcBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="cummulative_gpa" />
 </androidx.constraintlayout.widget.ConstraintLayout>
